@@ -22,7 +22,7 @@ public class TextStatistics implements TextStatisticsInterface
     private Scanner fileScan;
     //Be mindful of these when counting the words and their lengths
     //They should not be included as words or counted in the length of the word
-    private final String DELIMITERS = "\\s,.;:'\"&!?-_\n\t12345678910[]{}()@#$%^*/+-";
+    private final String DELIMITERS = "/([^A-Za-z])+/";
     private int lineCount, wordCount, charCount, letterCount[], wordLengthCount[];
     private double averageWordLength;
     private String results;
@@ -99,7 +99,7 @@ public class TextStatistics implements TextStatisticsInterface
         return letterCount;
     }
 
-    private String getStringLetterCount()
+    public String getStringLetterCount()
     {
         String letterCount = "";
         for(int i = 0; i < this.letterCount.length; ++i)
@@ -128,16 +128,6 @@ public class TextStatistics implements TextStatisticsInterface
     @Override
     public int[] getWordLengthCount()
     {
-        return wordLengthCount;
-    }
-
-    private String getStringWordLengthCount()
-    {
-        String wordLengthCount = "";
-        for(int i = 0; i < this.wordLengthCount.length; ++i)
-        {
-            wordLengthCount += "%n Words with length " + i + " Count: " + this.wordLengthCount[i];
-        }
         return wordLengthCount;
     }
 
@@ -177,8 +167,7 @@ public class TextStatistics implements TextStatisticsInterface
         results += "%nWord Count: " + getWordCount();
         results += "%nCharacter Count: " + getCharCount();
         results += getStringLetterCount();
-        results += getStringWordLengthCount();
-        results += "%nAverage Word Length: " + getAverageWordLength();
+        //results += "%getWordLengthCount();
         return results;
     }
 
