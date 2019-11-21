@@ -34,19 +34,22 @@ public class TextStatistics implements TextStatisticsInterface
 
         try
         {
-
             fileScan = new Scanner(textFile);
 
             while(fileScan.hasNextLine())
             {
                 String line = fileScan.nextLine();
 
-                lineCount++;
+                setLineCount();
+                setWordCount(line);
+                setCharCount(line);
+                setLetterCount(line);
+                setWordLengthCount(line);
+                setAverageWordLength(getWordLengthCount());
             }
         }
         catch (FileNotFoundException ex)
         {
-
             System.out.println("File cannot be located.");
         }
 
@@ -55,49 +58,116 @@ public class TextStatistics implements TextStatisticsInterface
     @Override
     public int getLineCount()
     {
-
         return lineCount;
     }
 
+    private void setLineCount()
+    {
+        lineCount++;
+    }
     @Override
     public int getWordCount()
     {
-
         return wordCount;
+    }
+
+    private void setWordCount(String line)
+    {
+        for(String word : line.split(" "))
+        {
+            wordCount++;
+        }
     }
 
     @Override
     public int getCharCount()
     {
-
         return charCount;
+    }
+
+    private void setCharCount(String line)
+    {
+        for(char character : line.toCharArray())
+        {
+            charCount++;
+        }
     }
 
     @Override
     public int[] getLetterCount()
     {
-
         return letterCount;
+    }
+
+    public String getStringLetterCount()
+    {
+        String letterCount = "";
+        for(int i = 0; i < this.letterCount.length; ++i)
+        {
+            char letter = (char)(i + 65);
+            letterCount += "%n" + letter + " Count: " + this.letterCount[i];
+        }
+        return letterCount;
+    }
+
+    private void setLetterCount(String line)
+    {
+        for(char character : line.toCharArray())
+        {
+            if(character >= 65 && character <= 90)
+            {
+                ++letterCount[character - 65];
+            }
+            else if(character >= 97 && character <= 122)
+            {
+                ++letterCount[character - 97];
+            }
+        }
     }
 
     @Override
     public int[] getWordLengthCount()
     {
-
         return wordLengthCount;
+    }
+
+    private void setWordLengthCount(String line)
+    {
+        for(String word : line.split(" "))
+        {
+            if(word.length() >= 23)
+            {
+                ++wordLengthCount[23];
+                continue;
+            }
+            ++wordLengthCount[word.length()];
+        }
     }
 
     @Override
     public double getAverageWordLength()
     {
-
         return averageWordLength;
     }
 
+    private void setAverageWordLength(int[] wordLength)
+    {
+        int total = 0;
+        for(int length : wordLength)
+        {
+            total += length;
+        }
+        averageWordLength = total/wordLength.length;
+    }
     //TODO: Complete the toString method which prints out the results
+    @Override
     public String toString()
     {
-
+        results += "Line Count: " + getLineCount();
+        results += "%nWord Count: " + getWordCount();
+        results += "%nCharacter Count: " + getCharCount();
+        results += getStringLetterCount();
+        //results += "%getWordLengthCount();
         return results;
     }
 
