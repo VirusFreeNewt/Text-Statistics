@@ -11,7 +11,7 @@ import java.util.logging.Logger;
  *
  *
  *
- * @author Pluska
+ * @author VirusFreeNewt
  */
 //TODO: implement the TextStatisticsInterface
 public class TextStatistics implements TextStatisticsInterface

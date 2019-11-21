@@ -7,7 +7,7 @@ import java.io.File;
  *
  *
  *
- * @author Pluska
+ * @author VirusFreeNewt
  */
 public class ProcessStatistics
 {
