@@ -1,4 +1,4 @@
-package textstatistics; 
+//package textstatistics;
 /**
  * Interface to get statistics from a text file. Used in the testing program.
  *

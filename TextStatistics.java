@@ -1,4 +1,4 @@
-package textstatistics;
+//package textstatistics;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -37,6 +37,12 @@ public class TextStatistics implements TextStatisticsInterface
 
             fileScan = new Scanner(textFile);
 
+            while(fileScan.hasNextLine())
+            {
+                String line = fileScan.nextLine();
+
+                lineCount++;
+            }
         }
         catch (FileNotFoundException ex)
         {

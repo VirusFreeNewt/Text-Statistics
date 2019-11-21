@@ -1,4 +1,4 @@
-package textstatistics;
+//package textstatistics;
 
 import java.io.File;
 
