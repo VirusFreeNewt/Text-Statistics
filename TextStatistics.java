@@ -73,7 +73,7 @@ public class TextStatistics implements TextStatisticsInterface
 
     private void setWordCount(String line)
     {
-        for(String word : line.split(" "))
+        for(String word : line.split("\\W"))
         {
             wordCount++;
         }
@@ -99,7 +99,7 @@ public class TextStatistics implements TextStatisticsInterface
         return letterCount;
     }
 
-    public String getStringLetterCount()
+    private String getStringLetterCount()
     {
         String letterCount = "";
         for(int i = 0; i < this.letterCount.length; ++i)
@@ -131,9 +131,19 @@ public class TextStatistics implements TextStatisticsInterface
         return wordLengthCount;
     }
 
+    private String getStringWordLengthCount()
+    {
+        String wordLengthCount = "";
+        for(int i = 0; i < this.wordLengthCount.length; ++i)
+        {
+            wordLengthCount += "%n Words with length " + i + " Count: " + this.wordLengthCount[i];
+        }
+        return wordLengthCount;
+    }
+
     private void setWordLengthCount(String line)
     {
-        for(String word : line.split(" "))
+        for(String word : line.split("\\W"))
         {
             if(word.length() >= 23)
             {
@@ -167,7 +177,8 @@ public class TextStatistics implements TextStatisticsInterface
         results += "%nWord Count: " + getWordCount();
         results += "%nCharacter Count: " + getCharCount();
         results += getStringLetterCount();
-        //results += "%getWordLengthCount();
+        results += getStringWordLengthCount();
+        results += "%nAverage Word Length: " + getAverageWordLength();
         return results;
     }
 
