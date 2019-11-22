@@ -22,10 +22,10 @@ public class TextStatistics implements TextStatisticsInterface
     private Scanner fileScan;
     //Be mindful of these when counting the words and their lengths
     //They should not be included as words or counted in the length of the word
-    private final String DELIMITERS = "/([^A-Za-z])+/";
-    private int lineCount, wordCount, charCount, letterCount[], wordLengthCount[];
+    private final String DELIMITERS = "\\W+";
+    private int lineCount, wordCount, charCount, letterCount[] = new int[26], wordLengthCount[] = new int[24];
     private double averageWordLength;
-    private String results;
+    private String results = "";
 
     public TextStatistics(File file)
     {
@@ -41,11 +41,13 @@ public class TextStatistics implements TextStatisticsInterface
                 String line = fileScan.nextLine();
 
                 setLineCount();
-                setWordCount(line);
-                setCharCount(line);
-                setLetterCount(line);
-                setWordLengthCount(line);
-                setAverageWordLength(getWordLengthCount());
+                if(line.length() > 0) {
+                    setWordCount(line);
+                    setCharCount(line);
+                    setLetterCount(line);
+                    setWordLengthCount(line);
+                    setAverageWordLength(getWordLengthCount());
+                }
             }
         }
         catch (FileNotFoundException ex)
@@ -73,9 +75,10 @@ public class TextStatistics implements TextStatisticsInterface
 
     private void setWordCount(String line)
     {
-        for(String word : line.split(DELIMITERS))
+        for(String word : line.trim().split(DELIMITERS))
         {
             wordCount++;
+            System.out.println(word);
         }
     }
 
@@ -87,7 +90,7 @@ public class TextStatistics implements TextStatisticsInterface
 
     private void setCharCount(String line)
     {
-        for(char character : line.toCharArray())
+        for(String character : line.split(""))
         {
             charCount++;
         }
@@ -131,6 +134,21 @@ public class TextStatistics implements TextStatisticsInterface
         return wordLengthCount;
     }
 
+    public String getStringWordLengthCount()
+    {
+        String wordLengthCount = "";
+        for(int i = 0; i < this.wordLengthCount.length; ++i)
+        {
+            if(i >= 23)
+            {
+                wordLengthCount += "%nWords of length " + i + " or greater count: " + this.wordLengthCount[i];
+                continue;
+            }
+            wordLengthCount += "%nWords of length " + i + " count: " + this.wordLengthCount[i];
+        }
+        return wordLengthCount;
+    }
+
     private void setWordLengthCount(String line)
     {
         for(String word : line.split(DELIMITERS))
@@ -140,7 +158,10 @@ public class TextStatistics implements TextStatisticsInterface
                 ++wordLengthCount[23];
                 continue;
             }
-            ++wordLengthCount[word.length()];
+            else if(word.length() > 0)
+            {
+                ++wordLengthCount[word.length()];
+            }
         }
     }
 
@@ -153,11 +174,12 @@ public class TextStatistics implements TextStatisticsInterface
     private void setAverageWordLength(int[] wordLength)
     {
         int total = 0;
-        for(int length : wordLength)
+        for(int i = 1; i < wordLength.length; ++i)
         {
-            total += length;
+            total += wordLength[i] * i;
+
         }
-        averageWordLength = total/wordLength.length;
+        averageWordLength = total/getWordCount();
     }
     //TODO: Complete the toString method which prints out the results
     @Override
@@ -167,7 +189,9 @@ public class TextStatistics implements TextStatisticsInterface
         results += "%nWord Count: " + getWordCount();
         results += "%nCharacter Count: " + getCharCount();
         results += getStringLetterCount();
-        //results += "%getWordLengthCount();
+        results += getStringWordLengthCount();
+        results += "%nAverage Word Length: " + getAverageWordLength();
+        results += "%n";
         return results;
     }
 

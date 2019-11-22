@@ -29,6 +29,7 @@ public class ProcessStatistics
         {
 
             TextStatistics textStatistics = new TextStatistics(file);
+            System.out.printf(textStatistics.toString());
 
         }
         else
