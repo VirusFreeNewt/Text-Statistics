@@ -1,5 +1,3 @@
-//package textstatistics;
-
 import java.io.File;
 
 /**
@@ -11,7 +9,6 @@ import java.io.File;
  */
 public class ProcessStatistics
 {
-
     public static void main(String[] args)
     {
         File file = null;
@@ -36,9 +33,5 @@ public class ProcessStatistics
         {
             System.out.println("Please pass in a text file when compiling");
         }
-
-
-
     }
-
 }

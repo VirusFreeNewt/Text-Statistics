@@ -1,4 +1,3 @@
-//package textstatistics;
 /**
  * Interface to get statistics from a text file. Used in the testing program.
  *
@@ -10,23 +9,23 @@ public interface TextStatisticsInterface
     /**
      * @return the number of characters in the text file
      */
-    public int getCharCount();
+    int getCharCount();
 
     /**
      * @return the number of words in the text file
      */
-    public int getWordCount();
+    int getWordCount();
 
     /**
      * @return the number of lines in the text file
      */
-    public int getLineCount();
+    int getLineCount();
 
     /**
      * @return the letterCount array with locations [0]..[25] for 'a' through
      * 'z'
      */
-    public int[] getLetterCount();
+    int[] getLetterCount();
 
     /**
      * @return the wordLengthCount array with locations [0]..[23] with location
@@ -34,10 +33,10 @@ public interface TextStatisticsInterface
      * [0] is not used. Location [23] holds the count of words of length 23 and
      * higher.
      */
-    public int[] getWordLengthCount();
+    int[] getWordLengthCount();
 
     /**
      * @return the average word length in the text file
      */
-    public double getAverageWordLength();
+    double getAverageWordLength();
 }

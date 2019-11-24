@@ -1,11 +1,6 @@
-//package textstatistics;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -13,23 +8,20 @@ import java.util.logging.Logger;
  *
  * @author VirusFreeNewt
  */
-//TODO: implement the TextStatisticsInterface
 public class TextStatistics implements TextStatisticsInterface
 {
 
-    //Declare additional variables here
-    private File textFile;
-    private Scanner fileScan;
-    //Be mindful of these when counting the words and their lengths
-    //They should not be included as words or counted in the length of the word
+
     private final String DELIMITERS = "\\W+";
-    private int lineCount, wordCount, charCount, letterCount[] = new int[26], wordLengthCount[] = new int[24];
+    private int lineCount, wordCount, charCount;
+    private int[] letterCount = new int[26], wordLengthCount = new int[24];
     private double averageWordLength;
     private String results = "";
 
-    public TextStatistics(File file)
+    TextStatistics(File file)
     {
-
+        File textFile;
+        Scanner fileScan;
         textFile = file;
 
         try
@@ -41,9 +33,9 @@ public class TextStatistics implements TextStatisticsInterface
                 String line = fileScan.nextLine();
 
                 setLineCount();
+                setCharCount(line);
                 if(line.length() > 0) {
                     setWordCount(line);
-                    setCharCount(line);
                     setLetterCount(line);
                     setWordLengthCount(line);
                     setAverageWordLength(getWordLengthCount());
@@ -67,6 +59,7 @@ public class TextStatistics implements TextStatisticsInterface
     {
         lineCount++;
     }
+
     @Override
     public int getWordCount()
     {
@@ -77,8 +70,10 @@ public class TextStatistics implements TextStatisticsInterface
     {
         for(String word : line.trim().split(DELIMITERS))
         {
-            wordCount++;
-            System.out.println(word);
+            if(word.matches("\\w+"))
+            {
+                wordCount++;
+            }
         }
     }
 
@@ -90,10 +85,7 @@ public class TextStatistics implements TextStatisticsInterface
 
     private void setCharCount(String line)
     {
-        for(String character : line.split(""))
-        {
-            charCount++;
-        }
+        charCount += line.replaceAll(" ", "").toCharArray().length;
     }
 
     @Override
@@ -102,15 +94,15 @@ public class TextStatistics implements TextStatisticsInterface
         return letterCount;
     }
 
-    public String getStringLetterCount()
+    private String getStringLetterCount()
     {
-        String letterCount = "";
+        StringBuilder letterCount = new StringBuilder();
         for(int i = 0; i < this.letterCount.length; ++i)
         {
             char letter = (char)(i + 65);
-            letterCount += "%n" + letter + " Count: " + this.letterCount[i];
+            letterCount.append("%n").append(letter).append(" Count: ").append(this.letterCount[i]);
         }
-        return letterCount;
+        return letterCount.toString();
     }
 
     private void setLetterCount(String line)
@@ -134,19 +126,19 @@ public class TextStatistics implements TextStatisticsInterface
         return wordLengthCount;
     }
 
-    public String getStringWordLengthCount()
+    private String getStringWordLengthCount()
     {
-        String wordLengthCount = "";
+        StringBuilder wordLengthCount = new StringBuilder();
         for(int i = 0; i < this.wordLengthCount.length; ++i)
         {
             if(i >= 23)
             {
-                wordLengthCount += "%nWords of length " + i + " or greater count: " + this.wordLengthCount[i];
+                wordLengthCount.append("%nWords of length ").append(i).append(" or greater count: ").append(this.wordLengthCount[i]);
                 continue;
             }
-            wordLengthCount += "%nWords of length " + i + " count: " + this.wordLengthCount[i];
+            wordLengthCount.append("%nWords of length ").append(i).append(" count: ").append(this.wordLengthCount[i]);
         }
-        return wordLengthCount;
+        return wordLengthCount.toString();
     }
 
     private void setWordLengthCount(String line)
@@ -156,7 +148,6 @@ public class TextStatistics implements TextStatisticsInterface
             if(word.length() >= 23)
             {
                 ++wordLengthCount[23];
-                continue;
             }
             else if(word.length() > 0)
             {
@@ -179,20 +170,19 @@ public class TextStatistics implements TextStatisticsInterface
             total += wordLength[i] * i;
 
         }
-        averageWordLength = total/getWordCount();
+        averageWordLength = total/(double)getWordCount();
     }
-    //TODO: Complete the toString method which prints out the results
+
     @Override
     public String toString()
     {
         results += "Line Count: " + getLineCount();
         results += "%nWord Count: " + getWordCount();
-        results += "%nCharacter Count: " + getCharCount();
+        results += "%nCharacter Count (No Whitespace): " + getCharCount();
         results += getStringLetterCount();
         results += getStringWordLengthCount();
         results += "%nAverage Word Length: " + getAverageWordLength();
         results += "%n";
         return results;
     }
-
 }
