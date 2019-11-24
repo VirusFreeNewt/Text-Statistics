@@ -10,8 +10,6 @@ import java.util.Scanner;
  */
 public class TextStatistics implements TextStatisticsInterface
 {
-
-
     private final String DELIMITERS = "\\W+";
     private int lineCount, wordCount, charCount;
     private int[] letterCount = new int[26], wordLengthCount = new int[24];
