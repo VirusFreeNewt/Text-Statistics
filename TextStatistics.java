@@ -55,7 +55,7 @@ public class TextStatistics implements TextStatisticsInterface
 
     private void setLineCount()
     {
-        lineCount++;
+        ++lineCount;
     }
 
     @Override
@@ -70,7 +70,7 @@ public class TextStatistics implements TextStatisticsInterface
         {
             if(word.matches("\\w+"))
             {
-                wordCount++;
+                ++wordCount;
             }
         }
     }
