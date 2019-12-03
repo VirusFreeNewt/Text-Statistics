@@ -166,7 +166,6 @@ public class TextStatistics implements TextStatisticsInterface
         for(int i = 1; i < wordLength.length; ++i)
         {
             total += wordLength[i] * i;
-
         }
         averageWordLength = total/(double)getWordCount();
     }

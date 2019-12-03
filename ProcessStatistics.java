@@ -24,14 +24,14 @@ public class ProcessStatistics
 
         if (file.exists())
         {
-
             TextStatistics textStatistics = new TextStatistics(file);
             System.out.printf(textStatistics.toString());
-
         }
         else
         {
-            System.out.println("Please pass in a text file when compiling");
+
+            System.out.println("The file(s): " + Arrays.toString(args) + " are do not exist");
+            System.exit(-1);
         }
     }
 }
