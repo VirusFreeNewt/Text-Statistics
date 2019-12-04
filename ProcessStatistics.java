@@ -1,4 +1,5 @@
 import java.io.File;
+import java.util.Arrays;
 
 /**
  *
@@ -30,7 +31,7 @@ public class ProcessStatistics
         else
         {
 
-            System.out.println("The file(s): " + Arrays.toString(args) + " are do not exist");
+            System.out.println("The file(s): " + Arrays.toString(args) + " do not exist");
             System.exit(-1);
         }
     }
