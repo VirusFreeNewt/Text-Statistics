@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class TextStatistics implements TextStatisticsInterface
 {
     private final String DELIMITERS = "\\W+";
-    private int lineCount, wordCount, charCount;
+    private int lineCount, wordCount, charCount, charCountSpaces;
     private int[] letterCount = new int[26], wordLengthCount = new int[24];
     private double averageWordLength;
     private String results = "";
@@ -32,11 +32,16 @@ public class TextStatistics implements TextStatisticsInterface
 
                 setLineCount();
                 setCharCount(line);
+                setCharCountSpaces(line);
                 if(line.length() > 0) {
                     setWordCount(line);
                     setLetterCount(line);
                     setWordLengthCount(line);
                     setAverageWordLength(getWordLengthCount());
+                }
+                else
+                {
+                    setCharCountSpaces(line); //catches empty lines
                 }
             }
         }
@@ -83,7 +88,17 @@ public class TextStatistics implements TextStatisticsInterface
 
     private void setCharCount(String line)
     {
-        charCount += line.replaceAll(" ", "").toCharArray().length;
+        charCount += line.replaceAll(" ", "").length();
+    }
+
+    public int getCharCountSpaces()
+    {
+        return charCountSpaces;
+    }
+
+    private void setCharCountSpaces(String line)
+    {
+        charCountSpaces += line.length() + 1;
     }
 
     @Override
@@ -175,6 +190,7 @@ public class TextStatistics implements TextStatisticsInterface
     {
         results += "Line Count: " + getLineCount();
         results += "%nWord Count: " + getWordCount();
+        results += "%nCharacter Count : " + getCharCountSpaces();
         results += "%nCharacter Count (No Whitespace): " + getCharCount();
         results += getStringLetterCount();
         results += getStringWordLengthCount();
