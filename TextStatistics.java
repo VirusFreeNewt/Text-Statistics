@@ -15,6 +15,7 @@ public class TextStatistics implements TextStatisticsInterface
     private int[] letterCount = new int[26], wordLengthCount = new int[24];
     private double averageWordLength;
     private String results = "";
+    private String border = "%n===================%n";
 
     TextStatistics(File file)
     {
@@ -189,13 +190,19 @@ public class TextStatistics implements TextStatisticsInterface
     public String toString()
     {
         results += "Line Count: " + getLineCount();
-        results += "%nWord Count: " + getWordCount();
-        results += "%nCharacter Count : " + getCharCountSpaces();
-        results += "%nCharacter Count (No Whitespace): " + getCharCount();
+        results += border;
+        results += "Word Count: " + getWordCount();
+        results += border;
+        results += "Character Count : " + getCharCountSpaces();
+        results += border;
+        results += "Character Count (No Whitespace): " + getCharCount();
+        results += border;
         results += getStringLetterCount();
+        results += border;
         results += getStringWordLengthCount();
-        results += "%nAverage Word Length: " + getAverageWordLength();
-        results += "%n";
+        results += border;
+        results += "Average Word Length: " + getAverageWordLength();
+        results += border;
         return results;
     }
 }
