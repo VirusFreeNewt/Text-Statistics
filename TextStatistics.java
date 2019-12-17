@@ -33,16 +33,12 @@ public class TextStatistics implements TextStatisticsInterface
 
                 setLineCount();
                 setCharCount(line);
-                setCharCountSpaces(line);
+                setCharCountSpaces(line); //catches empty lines
                 if(line.length() > 0) {
                     setWordCount(line);
                     setLetterCount(line);
                     setWordLengthCount(line);
                     setAverageWordLength(getWordLengthCount());
-                }
-                else
-                {
-                    setCharCountSpaces(line); //catches empty lines
                 }
             }
         }
@@ -81,8 +77,8 @@ public class TextStatistics implements TextStatisticsInterface
         }
     }
 
-    @Override
-    public int getCharCount()
+
+    public int getCharCountSpaces()
     {
         return charCount;
     }
@@ -92,7 +88,8 @@ public class TextStatistics implements TextStatisticsInterface
         charCount += line.replaceAll(" ", "").length();
     }
 
-    public int getCharCountSpaces()
+    @Override
+    public int getCharCount()
     {
         return charCountSpaces;
     }
