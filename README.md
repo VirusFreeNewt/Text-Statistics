@@ -17,7 +17,7 @@ $ javac ProcessStatistics.java
 
 Run the compiled class with the command:
 ```
-$ java ProcessStatistics <file(s) name(s) here>
+$ java ProcessStatistics <file name(s) here>
 ```
 
 ## Discussion
